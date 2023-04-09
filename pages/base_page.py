@@ -1,3 +1,5 @@
+import time
+
 from .locators import BasePageLocators
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
@@ -41,3 +43,7 @@ class BasePage:
         login_link = self.browser.find_element(*BasePageLocators.LOGIN_LINK)
         login_link.click()
         # return LoginPage(self.browser, self.browser.current_url)
+
+    def go_to_basket_page(self):
+        basket_button = self.browser.find_element(*BasePageLocators.BASKET_BUTTON)
+        basket_button.click()
