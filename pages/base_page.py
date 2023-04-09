@@ -45,3 +45,6 @@ class BasePage:
     def go_to_basket_page(self):
         basket_button = self.browser.find_element(*BasePageLocators.BASKET_BUTTON)
         basket_button.click()
+
+    def is_user_authorized(self):
+        return self.is_element_present(*BasePageLocators.LOGOUT_LINK)
