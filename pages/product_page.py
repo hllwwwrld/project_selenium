@@ -4,7 +4,10 @@ from selenium.common.exceptions import NoAlertPresentException
 import math
 
 
+# methods for product pages
+# subclass of base page, which initializing pages by url and web driver
 class ProductPage(BasePage):
+    # method for solve alert when adding promo product to basket
     def solve_quiz_and_get_code(self):
         alert = self.browser.switch_to.alert
         x = alert.text.split(" ")[2]
@@ -19,44 +22,41 @@ class ProductPage(BasePage):
         except NoAlertPresentException:
             print("No second alert presented")
 
+    # method to get price of product from page
     def get_product_value(self):
         product_value = self.browser.find_element(*ProductPageLocators.BOOK_PRICE).text.split()[0]
+        # returning product price string
         return product_value
 
+    # method to get name of product from page
     def get_book_name(self):
         book_name = self.browser.find_element(*ProductPageLocators.BOOK_NAME).text
+        # returning product name string
         return book_name
 
+    # method to add product from page to basket (finding add to cart button and clicking it)
     def add_to_cart(self):
         add_to_cart_button = self.browser.find_element(*ProductPageLocators.ADD_TO_CART)
         add_to_cart_button.click()
 
+    # get new cart value in success message after adding product to basket
     def get_cart_value_after_adding_product(self):
-        cart_value_after_adding_product = self.browser.find_element(*ProductPageLocators.ADD_TO_CART_SUCCESS_MESSAGE_CART_VALUE).text.split()[0]
+        cart_value_after_adding_product = self.browser.find_element(
+            *ProductPageLocators.ADD_TO_CART_SUCCESS_MESSAGE_CART_VALUE).text.split()[0]
         return cart_value_after_adding_product
 
+    # get name of profuct from success message when adding product to basket
     def get_product_name_in_add_to_cart_success_message(self):
-        add_to_cart_alert_book_name = self.browser.find_element(*ProductPageLocators.ADD_TO_CART_SUCCESS_MESSAGE_BOOK_NAME).text
+        add_to_cart_alert_book_name = self.browser.find_element(
+            *ProductPageLocators.ADD_TO_CART_SUCCESS_MESSAGE_BOOK_NAME).text
         return add_to_cart_alert_book_name
 
-    def get_success_message(self):
-        success_message = self.browser.find_element(*ProductPageLocators.ADD_TO_CURT_SUCCESS_MESSAGE)
-        return success_message
-
+    # check if page contains add to cart success message
     def should_not_be_success_message(self):
-        assert self.is_not_element_present(*ProductPageLocators.ADD_TO_CURT_SUCCESS_MESSAGE), \
+        assert self.is_not_element_present(*ProductPageLocators.ADD_TO_CART_SUCCESS_MESSAGE), \
             "Success message is presented but not should be"
 
+    # check if page do not contain add to cart success message
     def success_message_should_disapper(self):
-        assert self.is_disappeared(*ProductPageLocators.ADD_TO_CURT_SUCCESS_MESSAGE), \
+        assert self.is_disappeared(*ProductPageLocators.ADD_TO_CART_SUCCESS_MESSAGE), \
             'Success message is not disappered'
-
-    # def should_be_correct_message_about_adding_product(self):
-    #     book_name = self.browser.find_element(*ProductPageLocators.BOOK_NAME).text
-    #     add_to_cart_alert_book_name = self.browser.find_element(*ProductPageLocators.ADD_TO_CART_ALERT_BOOK_NAME).text
-    #     assert book_name == add_to_cart_alert_book_name
-    #
-    # def cart_value_should_be_equal_to_products_value(self):
-    #     product_value = self.browser.find_element(*ProductPageLocators.BOOK_PRICE).text.split()[0]
-    #     cart_value_after_adding_product = self.browser.find_element(*ProductPageLocators.ADD_TO_CART_ALERT_NEW_CART_VALUE).text.split()[0]
-    #     assert product_value == cart_value_after_adding_product

@@ -1,11 +1,15 @@
 from selenium.webdriver.common.by import By
 
 
+# all of these classes contains elements with method and path to element
+# to use these elements u need to take them with unpack, example:
+# browser.find_element(<UNPACKING UR ELEMENT HERE>)
+# browser.find_element(*LOGIN_LINK)
+
 class BasePageLocators:
     LOGIN_LINK = (By.CSS_SELECTOR, "#login_link")
     BASKET_BUTTON = (By.CSS_SELECTOR, ".btn-group > .btn[href$='/basket/']")
     LOGOUT_LINK = (By.CSS_SELECTOR, '#logout_link')
-
 
 
 class MainPageLocators:
@@ -27,7 +31,7 @@ class ProductPageLocators:
     ADD_TO_CART_SUCCESS_MESSAGE_CART_VALUE = (By.CSS_SELECTOR, '#messages > div  p > strong')
     BOOK_NAME = (By.CSS_SELECTOR, '.product_page div > h1')
     BOOK_PRICE = (By.CSS_SELECTOR, '.product_page div > .price_color')
-    ADD_TO_CURT_SUCCESS_MESSAGE = (By.CSS_SELECTOR, '#messages > .alert-success')
+    ADD_TO_CART_SUCCESS_MESSAGE = (By.CSS_SELECTOR, '#messages > .alert-success')
 
 
 class BasketPageLocators:
