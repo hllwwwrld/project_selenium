@@ -1,5 +1,3 @@
-import time
-
 from .locators import BasePageLocators
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
